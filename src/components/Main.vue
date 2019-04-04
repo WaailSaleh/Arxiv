@@ -1,5 +1,5 @@
 <template>
- <nav class="navbar" style="background-color: red" role="navigation" aria-label="main navigation">
+ <nav class="navbar" style="background-color: #FC5E5E" role="navigation" aria-label="main navigation">
   <div class="container">
   <div class="navbar-brand">
     <a class="navbar-item" href="https://bulma.io">
@@ -15,11 +15,11 @@
         <div class="navbar-menu" v-bind:class="{'is-active': isOpen}">
     <div class="navbar-start">
       <a class="navbar-item">
-        Home
+        <router-link  :to="{name:'Home'}"  >Articles </router-link>
       </a>
 
       <a class="navbar-item">
-        Page 2
+         <router-link :to="{name:'Authors'}">Authors </router-link>
       </a>
 
       
@@ -35,9 +35,7 @@
 <script>
 export default {
   name: 'Main',
-  props: {
-    msg: String
-  },
+  
   data: function() {
     return {
     isOpen : false
@@ -48,6 +46,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+router-link, a
+{
+  
+  color: #000000;
+  text-shadow: black;
 
+}
 
 </style>
