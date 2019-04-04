@@ -34,8 +34,37 @@
 </nav>
 	</div>
 </template>
+
 <script>
-	
+	 export default {
+      name: 'nav-tabs-table',
+      created() {
+      	this.$store.dispatch('getArticles');
+      	console.log('action commited');
+       },
+
+  data () {
+    return {
+      selected: [],
+      Articles: [
+        {
+          name: 'Sign contract for "What are conference organizers afraid of?"'
+        },
+        {
+          name: 'Lines From Great Russian Literature? Or E-mails From My Boss?'
+        },
+        {
+          name: 'Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit'
+        }
+      ]
+    }
+  },
+  methods: {
+    onSelect: function (items) {
+      this.selected = items
+    }
+  }
+}
 </script>
 <style>
 	

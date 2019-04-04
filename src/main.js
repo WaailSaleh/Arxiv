@@ -4,7 +4,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import Vuex from 'vuex'
 import axios from 'axios';
-//css
+import convert from 'xml-js'
 import 'bulma/css/bulma.css';
 
 //components
@@ -34,7 +34,7 @@ const router = new VueRouter({ routes })
 const store = new Vuex.Store({
     state: {
         count: 0,
-        articles:'hi'
+        articles:''
     },
     mutations:{
             saveArticles(state,articles){
@@ -42,11 +42,15 @@ const store = new Vuex.Store({
  			}
     },
     actions: {
-         getArticles(context){
-         	axios.get(`http://export.arxiv.org/api/query?search_query=all:electron&start=0&max_results=1`)
+         getArticles(context, search_query){
+         	if(search_query == '' || search_query ==null)
+         		search_query ="machine learning"
+         	axios.get(`http://export.arxiv.org/api/query?search_query=all:"`+search_query+`"&start=0&max_results=100&sortBy=lastUpdatedDate&sortOrder=descending`)
     .then(response => {
      
-      context.commit('saveArticles',response)
+     	 let x =convert.xml2js(response.data,{compact: true, spaces: 4}).feed.entry;
+ 		
+      context.commit('saveArticles',x)
     })
   		}
     }
